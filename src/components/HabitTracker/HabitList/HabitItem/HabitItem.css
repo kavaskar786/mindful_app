@@ -1,0 +1,6 @@
+.react-calendar__tile.attended {
+  background-color: #76f076;
+  font-weight: bold;
+  border-radius: 100%;
+  font-style: oblique;
+}

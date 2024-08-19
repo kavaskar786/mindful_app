@@ -1,0 +1,114 @@
+[
+  {
+    "id": "question1",
+    "text": "How well did you sleep last night?",
+    "options": [
+      { "text": "Very well", "value": 4 },
+      { "text": "Well", "value": 3 },
+      { "text": "Average", "value": 2 },
+      { "text": "Poorly", "value": 1 },
+      { "text": "Very poorly", "value": 0 }
+    ]
+  },
+  {
+    "id": "question2",
+    "text": "How would you rate your mood today?",
+    "options": [
+      { "text": "Very happy", "value": 4 },
+      { "text": "Happy", "value": 3 },
+      { "text": "Neutral", "value": 2 },
+      { "text": "Sad", "value": 1 },
+      { "text": "Very sad", "value": 0 }
+    ]
+  },
+  {
+    "id": "question3",
+    "text": "How is your energy level today?",
+    "options": [
+      { "text": "Very high", "value": 4 },
+      { "text": "High", "value": 3 },
+      { "text": "Average", "value": 2 },
+      { "text": "Low", "value": 1 },
+      { "text": "Very low", "value": 0 }
+    ]
+  },
+  {
+    "id": "question4",
+    "text": "How stressed do you feel today?",
+    "options": [
+      { "text": "Not stressed at all", "value": 4 },
+      { "text": "A little stressed", "value": 3 },
+      { "text": "Moderately stressed", "value": 2 },
+      { "text": "Very stressed", "value": 1 },
+      { "text": "Extremely stressed", "value": 0 }
+    ]
+  },
+  {
+    "id": "question5",
+    "text": "How much physical activity did you do today?",
+    "options": [
+      { "text": "More than 60 minutes", "value": 4 },
+      { "text": "30-60 minutes", "value": 3 },
+      { "text": "10-30 minutes", "value": 2 },
+      { "text": "Less than 10 minutes", "value": 1 },
+      { "text": "None", "value": 0 }
+    ]
+  },
+  {
+    "id": "question6",
+    "text": "How well did you eat today?",
+    "options": [
+      { "text": "Very healthy", "value": 4 },
+      { "text": "Healthy", "value": 3 },
+      { "text": "Average", "value": 2 },
+      { "text": "Unhealthy", "value": 1 },
+      { "text": "Very unhealthy", "value": 0 }
+    ]
+  },
+  {
+    "id": "question7",
+    "text": "How well did you practice self-care today?",
+    "options": [
+      { "text": "Excellent", "value": 4 },
+      { "text": "Good", "value": 3 },
+      { "text": "Average", "value": 2 },
+      { "text": "Poor", "value": 1 },
+      { "text": "Very poor", "value": 0 }
+    ]
+  },
+  {
+    "id": "question8",
+    "text": "How connected did you feel with others today?",
+    "options": [
+      { "text": "Very connected", "value": 4 },
+      { "text": "Connected", "value": 3 },
+      { "text": "Neutral", "value": 2 },
+      { "text": "Disconnected", "value": 1 },
+      { "text": "Very disconnected", "value": 0 }
+    ]
+  },
+  {
+    "id": "question9",
+    "text": "How productive were you today?",
+    "options": [
+      { "text": "Very productive", "value": 4 },
+      { "text": "Productive", "value": 3 },
+      { "text": "Somewhat productive", "value": 2 },
+      { "text": "Not very productive", "value": 1 },
+      { "text": "Not at all productive", "value": 0 }
+    ]
+  },
+  {
+    "id": "question10",
+    "text": "How much time did you spend on relaxation or leisure activities today?",
+    "options": [
+      { "text": "More than 2 hours", "value": 4 },
+      { "text": "1-2 hours", "value": 3 },
+      { "text": "30 minutes to 1 hour", "value": 2 },
+      { "text": "Less than 30 minutes", "value": 1 },
+      { "text": "None", "value": 0 }
+    ]
+  }
+]
+  
+  

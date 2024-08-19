@@ -1,0 +1,87 @@
+[
+  {
+    "path": "/",
+    "text": "MindfulMe: Your Companion for Mental Well-being",
+    "faq": "This is the homepage for the MindfulMe: Your Companion for Mental Well-being Web App. It provides an overview of the available features and tools to help users manage their mental health and well-being."
+  },
+  {
+    "path": "/memory-match",
+    "text": "Memory Booster",
+    "faq": "Memory Booster is a fun and interactive game designed to help improve memory and concentration.\n\nIn this game, users click on cards to reveal them and find matching pairs.\n\nThe game tracks the number of moves and the time elapsed, allowing users to challenge themselves to complete the game in the shortest time and with the fewest moves possible.\n\nThe game also includes various audio effects, such as card flips and matches, and a volume control switch to turn off or on the sounds.\n\nUsers can also select from a range of emojis to customize the cards.\n\nMemory Booster is a great way to improve memory and cognitive abilities while having fun!"
+  },
+  {
+    "path": "/draw",
+    "text": "Creative Canvas",
+    "faq": "Creative Canvas is a therapeutic game for artistic expression and stress relief. Users can draw and create art to help manage their emotions and reduce stress levels.\n\nFeatures:\n- Advanced color picker with options for built-in colors and SketchPicker\n- Brush size slider for customization\n- Undo/redo functionality with keyboard shortcuts (Ctrl + Z/Ctrl + Shift + Z)\n- Save and export options for PNG and JPG formats\n- Eraser tool for easy corrections\n\nTo use Creative Canvas, simply open the application and start drawing on the canvas. You can customize the brush size and color to your liking, and use the eraser tool to correct any mistakes. If you need to undo or redo any changes, you can use the keyboard shortcuts or click the corresponding buttons. Finally, you can save or export your art as a PNG or JPG file. Creative Canvas is a fun and therapeutic way to express yourself and relieve stress through art."
+  },
+  {
+    "path": "/coping-strategies",
+    "text": "Coping Toolbox",
+    "faq": "Coping Toolbox provides valuable information on various coping mechanisms for managing stress and anxiety. Users can explore different strategies to find the best fit for their needs."
+  },
+  {
+    "path": "/cbt",
+    "text": "CBT Fundamentals",
+    "faq": "CBT Fundamentals offers resources and information about cognitive-behavioral therapy (CBT) techniques. Users can learn about this evidence-based approach to improve mental health and well-being."
+  },
+  {
+    "path": "/support-groups",
+    "text": "Support Circles",
+    "faq": "Support Circles allow users to join virtual support groups where they can connect with others, share experiences, and provide support. The platform offers text moderation, suicide prevention support, and abuse prevention features."
+  },
+  {
+    "path": "/chat",
+    "text": "Peer Chat",
+    "faq": "Peer Chat enables users to communicate with peers in a safe and supportive environment. Users can share their experiences, provide support to others, and engage in meaningful conversations."
+  },
+  {
+    "path": "/mood-tracker",
+    "text": "Mood Journal",
+    "faq": "Mood Journal is a feature on this platform that allows users to track their mood over time. By using the Mood Logging component, users can log their mood on a scale from 1 to 10, which is represented by a range of emoticons from crying face 😭 to heart eyes 😍. \n\nThe platform saves this data in the backend, and the Mood Visualize component displays a visualization of the user's mood data, allowing them to better understand their emotional patterns and mental well-being over time.\n\nUsers can filter the visualization by year and month to see how their mood has changed over time. The feature provides a useful tool for users to keep track of their emotional well-being and identify any patterns or triggers that may affect their mood. By better understanding their mood and mental well-being, users can take steps towards improving their overall well-being."
+  },
+  {
+    "path": "/goal-setting",
+    "text": "Goal Planner",
+    "faq": "Goal Planner allows users to set personalized goals and track their progress. To use this feature, start by clicking the 'Create a New Goal' button. From there, you can set a goal title, description, and choose a (SMART Goal) category that best fits your goal. \n\nYou can also set a progress bar that will update as you mark off completed tasks or milestones. As you work towards your goal, use the 'Update Progress' button to set your progress. You can also sort Goals by the completion status.\n\nWe hope the Goal Planner feature helps you stay focused, motivated, and successful in achieving your personal goals."
+  },
+  {
+    "path": "/self-assessment",
+    "text": "Wellness Quiz",
+    "faq": "Wellness Quiz offers personalized self-assessment tools and diagnostic quizzes to help users better understand their mental well-being.\n\nUsers can gain insights into their well-being and identify areas for improvement. After completing the quiz, users will receive a mood score based on their responses. They have the option to log their mood, which will be saved in their Mood Journal. Users can also choose to visit their Mood Journal or close both modals.\n\nThe Mood Journal can be used to track daily moods and reflect on how they change over time. This can help users gain a better understanding of their emotional patterns and make more informed decisions about their mental well-being."
+  },
+  {
+    "path": "/habit-tracker",
+    "text": "Habit Organizer",
+    "faq": "Habit Organizer is a tool for users to manage and track their habits for better mental well-being. Users can create, monitor habits, and track their progress over time.\n\nQ: How do I create a habit?\nA: Fill out the 'Add a new habit' input field, then click the 'Add Habit' button.\n\nQ: How do I track my progress?\nA: You can track your progress by marking a habit as 'Maintain Habit' each day. The Habit Organizer will display a Streak value, which represents the consecutive days you have maintained the habit. You can click on Streak to open a calendar that has marked dates for each day you have completed the habit.\n\nQ: Can I edit or delete a habit?\nA: Yes, you can edit or delete a habit by clicking the corresponding options in the habit list on the Habit Organizer page."
+  },
+  {
+    "path": "/guided-meditation",
+    "text": "Mindful Meditation",
+    "faq": "Mindful Meditation offers meditations sounds users to practice mediation. This resource can help users improve their focus, reduce stress, and enhance overall mental well-being."
+  },
+  {
+    "path": "/chatbot",
+    "text": "AI Counselor",
+    "faq": "AI Counselor is an AI-powered chatbot designed to assist users with Mental Well-being. The chatbot can help answer questions, provide resources, and offer guidance on various mental well-being topics.\n\nQ: How do I start a conversation with AI Counselor?\nA: To start a conversation, simply type your question or concern in the chat input field and press 'Enter' or click the 'Send' button.\n\nQ: What topics can AI Counselor help with?\nA: AI Counselor can help with a variety of mental well-beingtopics, including stress, anxiety, depression, mindfulness, and coping strategies. \n\nPlease note that AI Counselor is not a replacement for professional mental well-being. \n\nIf you are experiencing a mental health crisis, please contact a mental health professional or call 911."
+  },
+  {
+    "path": "/survey",
+    "text": "Survey",
+    "faq": "The Survey section allows users to participate in surveys related to MindfulMe app. By taking part in these surveys, users can contribute valuable data to help improve MindfulMe app and services."
+  },
+  {
+    "path": "/profile",
+    "text": "Settings",
+    "faq": "In the Settings section, users can adjust preferences, and customize their experience on the platform. This includes changing their password, updating their theme to dark mode, and enabling or disabling email and push notifications."
+  },
+  {
+    "path": "/login",
+    "text": "Login",
+    "faq": "The Login page allows existing users to log in to their account using their email address and password. After logging in, users can access their personalized dashboard and features within the MindfulMe Web App."
+  },
+  {
+    "path": "/join",
+    "text": "Join",
+    "faq": "The Join page enables new users to create an account for the MindfulMe Web App. Users need to provide their email address, create a password, and set a display name to sign up."
+  }
+]
