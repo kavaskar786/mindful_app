@@ -11,7 +11,7 @@
   .fade-exit {
     opacity: 1;
   }
-  
+  /* fade-exit-active will be applied when the component is exiting */
   .fade-exit-active {
     opacity: 0;
     transition: opacity 1000ms ease-in-out;
