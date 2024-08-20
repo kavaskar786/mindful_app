@@ -14,7 +14,7 @@ const useNotificationPermission = () => {
           const messaging = firebase.messaging();
           const token = await messaging.getToken({
             vapidKey:
-              "BBYwSBRofNsC7_YgSayg1SeAuIg32nnmofohGZyZaQFwLx7ztkgDkVM6qp9SjyHict8TdcFWd1GdzZDeBorKmJ8",
+              "BCaL6zoYEiFaqNS8LxwhFJ560VVYYtM9mKIo5dLUaYDM8-XFTeJ-vHWKslhgptqEtu5KpNoWIaPAcm_JeRJnWSQ",
           });
           saveTokenToFirestore(token);
           console.log(token);

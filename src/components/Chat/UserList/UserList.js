@@ -13,8 +13,10 @@ const UsersList = () => {
 
   // Get current user from Redux state
   const currentUser = useSelector((state) => state.auth.user);
+  //  
   // Custom hook for fetching users and their chats/messages
   const { users, filterChat } = useFetchUsers(currentUser.uid, setLoading);
+  console.log(users);
 
   // Update search input value
   const handleSearch = (e) => setSearchValue(e.target.value);

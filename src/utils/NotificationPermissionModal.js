@@ -102,7 +102,7 @@ const NotificationPermissionModal = () => {
     if (permission === "granted") {
       const messaging = firebase.messaging();
       const token = await messaging.getToken({
-        vapidKey: "BLJxHQPsdXGM_1xpsoA2xq6pgChoPBSGjIzzrwbGHlkV7R-R7k6dBAVDP6JdjgjhdXOETcQnJpHwY3cFx7-mW8o",
+        vapidKey: "BCaL6zoYEiFaqNS8LxwhFJ560VVYYtM9mKIo5dLUaYDM8-XFTeJ-vHWKslhgptqEtu5KpNoWIaPAcm_JeRJnWSQ",
       });
       savePermissionStatus("granted");
       saveTokenToFirestore(token);
