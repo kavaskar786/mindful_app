@@ -24,7 +24,7 @@ export const NavigationBarMenu = ({ isOpenMenu, openDrawer }) => (
 // Component for navigation bar title
 export const NavigationBarTitle = () => (
   <NavLink to="/">
-    <Typography variant="h5">MindfulMe </Typography>
+    <Typography variant="h5">MindCare </Typography>
   </NavLink>
 );
 
