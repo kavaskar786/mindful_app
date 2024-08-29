@@ -2,37 +2,64 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import firebase from "../../../utils/firebase";
 import styled from "@mui/material/styles/styled";
-import { Button, TextField } from "@mui/material";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import logo from "../../../assets/images/logo.svg";
+import { Button, TextField, Box, Typography } from "@mui/material";
+import logo from "../../../assets/images/mlf1.png";
 import { useDispatch } from "react-redux";
-//import { logout } from "../../../store/features/auth/authSlice.js";
 
+// Styled components
 const Container = styled(Box)(({ theme }) => ({
+  display: "flex",
+  height: "100vh",
+  backgroundColor: "#F0F0F0",
+}));
+
+const LeftSide = styled(Box)(({ theme }) => ({
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+  padding: "40px",
+  backgroundColor: "#FFFFFF",
+  // Removed borderRadius to match the original request
+}));
+
+const Logo = styled("img")(({ theme }) => ({
+  width: "150px",
+  marginTop: "0", // Adjusted marginTop to move the logo up
+  height: "auto",
+}));
+
+const StaticText = styled(Typography)(({ theme }) => ({
+  fontSize: "2.4rem",
+  fontWeight: "bold",
+  color: "#000000",
+  marginTop: "0", // Adjusted marginTop to move the text up
+}));
+
+const RightSide = styled(Box)(({ theme }) => ({
+  flex: 1,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: window.innerHeight - 64,
-}));
-
-const Logo = styled("img")(({ theme }) => ({
-  width: "200px",
-  marginBottom: "48px",
+  padding: "40px",
+  backgroundColor: "#FFFFFF",
+  borderRadius: "0 16px 16px 0",
 }));
 
 const Form = styled(Box)(({ theme }) => ({
   width: "100%",
   maxWidth: "400px",
-  backgroundColor: theme.palette.background.box,
-  borderRadius: "8px",
   padding: "32px",
-  boxShadow: theme.shadows[1],
+  backgroundColor: "#FFFFFF",
+  borderRadius: "8px",
+  boxShadow: theme.shadows[2],
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
-  marginBottom: "24px",
+  marginBottom: "16px",
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -42,7 +69,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 const ErrorMessage = styled(Typography)(({ theme }) => ({
   color: theme.palette.error.main,
-  marginBottom: "24px",
+  marginBottom: "16px",
 }));
 
 const Join = () => {
@@ -60,7 +87,6 @@ const Join = () => {
       if (password !== confirmPassword) {
         throw new Error("Passwords do not match");
       }
-      // Check if username already exists
       const userSnapshot = await firebase
         .firestore()
         .collection("users")
@@ -69,11 +95,9 @@ const Join = () => {
       if (!userSnapshot.empty) {
         throw new Error("Username already exists");
       }
-      // Create user in Firebase auth
       const { user } = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
-      // Add user info to Firestore
       await user.updateProfile({
         displayName: username,
       });
@@ -90,50 +114,65 @@ const Join = () => {
 
   return (
     <Container>
-      <Logo src={logo} alt="logo" />
-      <Form component="form" onSubmit={handleJoin}>
-        <Typography variant="h5" gutterBottom>
-          Join
+      <LeftSide>
+        <Logo src={logo} alt="logo" />
+        <StaticText>Your Journey to</StaticText>
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          color="#000000"
+          textAlign="center"
+        >
+          Mental Well-being Starts Here!
         </Typography>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        <StyledTextField
-          id="email"
-          label="Email"
-          variant="outlined"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <StyledTextField
-          id="username"
-          label="Username"
-          variant="outlined"
-          fullWidth
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <StyledTextField
-          id="password"
-          label="Password"
-          variant="outlined"
-          fullWidth
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <StyledTextField
-          id="confirmPassword"
-          label="Confirm Password"
-          variant="outlined"
-          fullWidth
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <StyledButton variant="contained" type="submit">
-          Join
-        </StyledButton>
-      </Form>
+      </LeftSide>
+      <RightSide>
+        <Form component="form" onSubmit={handleJoin}>
+          <Typography variant="h5" gutterBottom 
+          textAlign="center">
+            Join
+            
+          </Typography>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <StyledTextField
+            id="email"
+            label="Email"
+            variant="outlined"
+            fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <StyledTextField
+            id="username"
+            label="Username"
+            variant="outlined"
+            fullWidth
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <StyledTextField
+            id="password"
+            label="Password"
+            variant="outlined"
+            fullWidth
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <StyledTextField
+            id="confirmPassword"
+            label="Confirm Password"
+            variant="outlined"
+            fullWidth
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <StyledButton variant="contained" type="submit">
+            Join
+          </StyledButton>
+        </Form>
+      </RightSide>
     </Container>
   );
 };

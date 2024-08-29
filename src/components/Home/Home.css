@@ -1,0 +1,85 @@
+/* Home.css */
+
+    .container {
+        min-height: calc(100vh - 128px);
+        padding: 16px;
+        /* Replace with your image path */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: #ffffff;
+      }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: auto;
+    min-height: 230px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .cardDark {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .cardLight {
+    background-color: #ffffff;
+  }
+  
+  .cardContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .cardTitle {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .cardDescription {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  
+  .cardImage {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    margin-bottom: 8px;
+  }
+  
+  li:hover {
+    transform: translateX(5px);
+  }
+  
+  .link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .link:hover .linkText {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  

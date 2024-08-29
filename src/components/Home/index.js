@@ -7,96 +7,82 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import slideImages from "./slideImages.json";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
+import "./Home.css";
+import ContactUs from "../ContactUs/index.js";
+import Footer from "../Footer/Footer.js";
+import slideImages from "./slideImages.json";
+import LandingPage from "../HomePage/index.js";
+
 
 const Home = () => {
   const cardVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
   };
 
   const darkMode = useSelector((state) => state.darkMode.darkMode);
 
+  // Limit to four images
+  const limitedSlides = slideImages.slice(0, 4);
+
   return (
+    
     <Box
+      className="container"
       sx={{
-        minHeight: "calc(100vh - 128px)",
-        color: "#ffffff",
-        padding: 4,
         backgroundColor: darkMode ? "#000000" : "#f8f8f8",
+        color: darkMode ? "#ffffff" : "#000000",
       }}
     >
+      < LandingPage />
       <Container maxWidth="lg">
-        <motion.div initial="hidden" animate="visible" variants={cardVariants} transition={{ duration: 1 }}>
+        <motion.div initial="hidden" animate="visible" className="gomma" variants={cardVariants} transition={{ duration: 1 }}>
           <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold" }} mt={2}>
-            Welcome to MindCare: Your Companion for Mental Well-being!
+            Services provided by the MindCare
           </Typography>
           <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "medium" }} mt={2}>
             The app is divided into the following categories:
           </Typography>
         </motion.div>
-        <Grid container spacing={4} mt={2} style={{ display: "flex", alignItems: "stretch" }}>
-          {slideImages.map((slide, index) => (
+        <Grid container spacing={4} mt={2}>
+          {limitedSlides.map((slide, index) => (
             <Grid item xs={12} sm={6} md={6} key={index}>
-              <motion.div initial="hidden" animate="visible" variants={cardVariants} transition={{ duration: 0.5, delay: index * 0.2 }}>
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={cardVariants}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
                 <Card
+                  className={`card ${darkMode ? "cardDark" : "cardLight"}`}
                   sx={{
-                    height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    backgroundColor: darkMode ? "rgba(255, 255, 255, 0.1)" : "#ffffff",
-                    boxShadow: 1,
-                    borderRadius: 2,
-                    maxWidth: 500,
-                    margin: "auto",
-                    minHeight: 230,
+                    height: "400px", // Set a fixed height for the card
                   }}
                 >
-                  <CardContent sx={{ flexGrow: 1, height: "100%" }}>
-                    <Typography variant="h6" align="center" sx={{ fontWeight: "bold" }}>
+                  <img
+                    src={slide.image} // Assuming slide.image holds the image path
+                    alt={slide.title}
+                    className="cardImage"
+                    style={{ width: "100%", height: "300px", objectFit: "cover" }} // Ensure image fits within the card
+                  />
+                  <CardContent
+                    className="cardContent"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%", // Ensure content stretches to fill the card
+                    }}
+                  >
+                    <Typography variant="h6" className="cardTitle">
                       {slide.title}
                     </Typography>
-                    <Typography variant="body1" sx={{ marginTop: 1, marginBottom: 3 }} align="center">
+                    <Typography variant="body1" className="cardDescription">
                       {slide.description}
                     </Typography>
-                    {slide.items && (
-                      <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
-                        {slide.items.map((item, idx) => (
-                          <li key={idx} style={{ marginBottom: 8 }}>
-                            {slide.links && slide.links[idx] ? (
-                              <Link
-                                to={slide.links[idx]}
-                                style={{
-                                  textDecoration: "none",
-                                  color: "inherit",
-                                }}
-                              >
-                                <Typography
-                                  variant="body1"
-                                  align="center"
-                                  sx={{
-                                    fontWeight: "medium",
-                                    "&:hover": {
-                                      textDecoration: "underline",
-                                      cursor: "pointer",
-                                    },
-                                  }}
-                                >
-                                  {item}
-                                </Typography>
-                              </Link>
-                            ) : (
-                              <Typography variant="body1" align="center" sx={{ fontWeight: "medium" }}>
-                                {item}
-                              </Typography>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
                   </CardContent>
                 </Card>
               </motion.div>
@@ -104,9 +90,11 @@ const Home = () => {
           ))}
         </Grid>
       </Container>
+
+      <ContactUs />
+      <Footer />
     </Box>
   );
 };
 
 export default Home;
-                                  

@@ -8,7 +8,7 @@ const darkTheme = createTheme({
       fontSize: "3.5rem",
       fontWeight: 700,
       letterSpacing: "-0.01562em",
-      color: teal[300],
+      color:"white" ,
     },
     h2: {
       fontSize: "2.5rem",
@@ -20,7 +20,7 @@ const darkTheme = createTheme({
       fontSize: "2rem",
       fontWeight: 700,
       letterSpacing: "0em",
-      color: green[200],
+      color: "white",
     },
     h4: {
       fontSize: "1.5rem",
@@ -40,7 +40,6 @@ const darkTheme = createTheme({
       letterSpacing: "0.00938em",
       color: "#fff",
     },
-
     body1: {
       fontSize: "1rem",
       fontWeight: 400,
@@ -56,10 +55,10 @@ const darkTheme = createTheme({
   },
   palette: {
     primary: {
-      main: teal[300],
+      main: '#E32D69',
     },
     secondary: {
-      main: green[200],
+      main:  '#E32D69',
     },
     text: {
       primary: "#fff",
@@ -73,6 +72,11 @@ const darkTheme = createTheme({
     error: {
       main: "#ff0000",
     },
+    gradients: {
+      dark: 'linear-gradient(to right, #D32F2F, #9A0036)',
+      light: 'linear-gradient(to right, #FA4B37, #DF2771)',
+    },
+    navbar: "#1e1e1e",  // Add this line
   },
   components: {
     MuiButton: {
@@ -118,7 +122,6 @@ const darkTheme = createTheme({
         },
       },
     },
-
     MuiSelect: {
       styleOverrides: {
         root: {},
@@ -126,16 +129,7 @@ const darkTheme = createTheme({
     },
     MuiMenuItem: {
       styleOverrides: {
-        root: {
-          // color: "#6D83B2",
-          // "&.Mui-selected": {
-          //   backgroundColor: "#9BC1BC",
-          //   color: "#fff",
-          //   "&:hover": {
-          //     backgroundColor: "#8EB3B0",
-          //   },
-          // },
-        },
+        root: {},
       },
     },
   },

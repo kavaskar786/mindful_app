@@ -1,0 +1,13 @@
+.cs_form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin:0 auto;
+}
+
+@media (max-width: 380px) {
+    .cs_form{
+        display: flex;
+        flex-direction: column;
+    }
+}

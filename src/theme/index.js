@@ -8,39 +8,37 @@ const theme = createTheme({
       fontSize: "3.5rem",
       fontWeight: 700,
       letterSpacing: "-0.01562em",
-      color: teal[500],
+      color: '#E32D69',
     },
     h2: {
       fontSize: "2.5rem",
       fontWeight: 700,
       letterSpacing: "-0.00833em",
-      color: teal[700],
+      color: '#E32D69',
     },
-
     h3: {
       fontSize: "2rem",
       fontWeight: 700,
       letterSpacing: "0em",
-      color: green[700],
+      color: '#E32D69',
     },
-
     h4: {
       fontSize: "1.5rem",
       fontWeight: 700,
       letterSpacing: "0.00735em",
-      color: "#333",
+      color: '#000000',
     },
     h5: {
       fontSize: "1.25rem",
       fontWeight: 700,
       letterSpacing: "0em",
-      color: "#333",
+      color: '#000000',
     },
     h6: {
       fontSize: "1rem",
       fontWeight: 700,
       letterSpacing: "0.00938em",
-      color: "#333",
+      color: '#E32D69',
     },
     body1: {
       fontSize: "1rem",
@@ -57,25 +55,30 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: teal[300],
+      main: '#E32D69',
     },
     secondary: {
-      main: green[700],
+      main: '#DF2771',
     },
     text: {
       primary: "#333",
     },
     mode: "light",
-
     background: {
-      default: "#f0f2f5",
-      paper: teal[50],
+      default: "#f0f2f#",
+      // paper: '#E4CED0',
+      paper: "#fff",
       box: "#fff",
     },
     error: {
       main: "#f44336",
       light: "#fce4ec",
+      // light: "#fff",
       dark: "#c62828",
+    },
+    gradients: {
+      dark: 'linear-gradient(to right, #D32F2F, #9A0036)',
+      light: 'linear-gradient(to right, #FA4B37, #DF2771)',
     },
   },
   components: {
@@ -103,7 +106,6 @@ const theme = createTheme({
         },
       },
     },
-
     MuiSelect: {
       styleOverrides: {
         root: {},
@@ -112,14 +114,7 @@ const theme = createTheme({
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          // color: "#6D83B2",
-          // "&.Mui-selected": {
-          //   backgroundColor: "#9BC1BC",
-          //   color: "#fff",
-          //   "&:hover": {
-          //     backgroundColor: "#8EB3B0",
-          //   },
-          // },
+          // Custom styles for MenuItem
         },
       },
     },
