@@ -77,6 +77,7 @@ const Join = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [userType, setUserType] = useState(""); // State for user type
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -102,10 +103,24 @@ const Join = () => {
         displayName: username,
       });
 
-      await firebase.firestore().collection("users").doc(user.uid).set({
+      // Data to be stored in Firestore
+      const userData = {
         email,
         username,
-      });
+        userType,
+      };
+
+      // If the user is a psychiatrist, initialize their rating to 0
+      if (userType === "Psychiatrist") {
+        userData.rating = 0;
+      }
+
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .set(userData);
+
       navigate("/");
     } catch (error) {
       setError(error.message);
@@ -128,10 +143,8 @@ const Join = () => {
       </LeftSide>
       <RightSide>
         <Form component="form" onSubmit={handleJoin}>
-          <Typography variant="h5" gutterBottom 
-          textAlign="center">
+          <Typography variant="h5" gutterBottom textAlign="center">
             Join
-            
           </Typography>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <StyledTextField
