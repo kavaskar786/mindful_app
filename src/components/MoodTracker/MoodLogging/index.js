@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Typography,
@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { createMood, getMoods } from "../../../store/features/mood/moodSlice";
+import firebase from "../../../utils/firebase";
 
 const MoodLogging = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,15 @@ const MoodLogging = () => {
   const moods = useSelector((state) => state.mood.moods);
   const [moodValue, setMoodValue] = useState(5);
   const [showSchedulePopup, setShowSchedulePopup] = useState(false);
+  const [sessions, setSessions] = useState([]);
+
+  useEffect(() => {
+    dispatch(getMoods(userId));
+  }, [dispatch, userId]);
+
+  useEffect(() => {
+    fetchSessions();
+  }, [userId]);
 
   const emoticons = [
     "😭",
@@ -39,12 +49,11 @@ const MoodLogging = () => {
     try {
       const moodData = {
         mood: moodValue,
-        userId: userId,
+        userId,
         date: new Date(),
       };
       await dispatch(createMood(moodData));
       await dispatch(getMoods(userId));
-
       const isMoodDown = checkForMoodDownturn(moods);
       if (isMoodDown) {
         alert(
@@ -73,11 +82,19 @@ const MoodLogging = () => {
     setShowSchedulePopup(true);
   };
 
-  const handleScheduleSubmit = (freeTime) => {
+  const handleScheduleSubmit = async (freeTime) => {
     const generatedSchedule = generateSchedule(freeTime);
     const googleMeetLink = generateGoogleMeetLink();
 
-    saveSession(generatedSchedule, googleMeetLink);
+    const newSession = await saveSessionToDatabase(
+      userId,
+      generatedSchedule,
+      googleMeetLink
+    );
+
+    if (newSession) {
+      fetchSessions(); // Fetch updated sessions after adding a new one
+    }
 
     setShowSchedulePopup(false);
 
@@ -95,8 +112,44 @@ const MoodLogging = () => {
     return `https://meet.google.com/abc-defg-hij`;
   };
 
-  const saveSession = (schedule, meetLink) => {
-    console.log(`Schedule: ${schedule}, Google Meet Link: ${meetLink}`);
+  const fetchSessions = async () => {
+    try {
+      const sessionsRef = firebase.firestore().collection("sessions");
+      const querySnapshot = await sessionsRef
+        .where("userId", "==", userId)
+        .orderBy("createdAt", "desc")
+        .get();
+
+      const sessionsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setSessions(sessionsData);
+    } catch (error) {
+      console.error("Failed to fetch sessions", error);
+    }
+  };
+
+  const saveSessionToDatabase = async (userId, schedule, meetLink) => {
+    try {
+      const sessionRef = firebase.firestore().collection("sessions");
+      const newSession = {
+        userId,
+        schedule,
+        meetLink,
+        status: "Scheduled",
+        // createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+
+      const docRef = await sessionRef.add(newSession);
+      console.log("Session saved with ID: ", docRef.id);
+
+      return { id: docRef.id, ...newSession };
+    } catch (error) {
+      console.error("Failed to save session: ", error.message);
+      console.error("Error details: ", error); // Additional error details
+    }
   };
 
   const valueLabelFormat = (value) => emoticons[value - 1];
@@ -143,6 +196,8 @@ const MoodLogging = () => {
         onClose={() => setShowSchedulePopup(false)}
         onSubmit={handleScheduleSubmit}
       />
+
+      <SessionsPage sessions={sessions} />
     </div>
   );
 };
@@ -173,6 +228,40 @@ const SchedulePopup = ({ open, onClose, onSubmit }) => {
         </Button>
       </DialogActions>
     </Dialog>
+  );
+};
+
+const SessionsPage = ({ sessions }) => {
+  return (
+    <div>
+      <h2>Your Sessions</h2>
+      {sessions.length > 0 ? (
+        <ul>
+          {sessions.map((session) => (
+            <li key={session.id}>
+              <p>
+                <strong>Date:</strong> {session.schedule}
+              </p>
+              <p>
+                <strong>Google Meet Link:</strong>{" "}
+                <a
+                  href={session.meetLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Join Meeting
+                </a>
+              </p>
+              <p>
+                <strong>Status:</strong> {session.status}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No sessions scheduled.</p>
+      )}
+    </div>
   );
 };
 
