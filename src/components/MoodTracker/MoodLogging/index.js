@@ -124,7 +124,7 @@ const MoodLogging = () => {
         id: doc.id,
         ...doc.data(),
       }));
-
+      console.log(sessionsData);
       setSessions(sessionsData);
     } catch (error) {
       console.error("Failed to fetch sessions", error);
@@ -139,7 +139,7 @@ const MoodLogging = () => {
         schedule,
         meetLink,
         status: "Scheduled",
-        // createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdAt: new Date(), // Using current date and time instead of serverTimestamp
       };
 
       const docRef = await sessionRef.add(newSession);
