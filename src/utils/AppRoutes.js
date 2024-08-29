@@ -22,6 +22,7 @@ import HabitTracker from "../components/HabitTracker";
 import Chatbot from "../components/Chatbot";
 import Profile from "../components/Profile";
 import ChangePassword from "../components/Profile/ChangePassword";
+import SessionsPage from "../components/sessions/SessionsPage.js";
 
 const AppRoutes = () => {
   return (
@@ -49,6 +50,7 @@ const AppRoutes = () => {
         <Route path="/habit-tracker" Component={HabitTracker} />
         <Route path="/chatbot" Component={Chatbot} />
         <Route path="/change-password" Component={ChangePassword} />
+        <Route path="/session" Component={SessionsPage} />
       </Route>
     </Routes>
   );

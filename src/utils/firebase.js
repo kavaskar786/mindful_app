@@ -8,9 +8,9 @@ import "firebase/compat/analytics";
 
 const app = firebase.initializeApp({
   apiKey: "AIzaSyAPMqNHvHoolKZDUYBhOZg3WtuUkg9oLrM",
-  authDomain:  "mindcare-23fd5.firebaseapp.com",
+  authDomain: "mindcare-23fd5.firebaseapp.com",
   projectId: "mindcare-23fd5",
-  storageBucket:  "mindcare-23fd5.appspot.com",
+  storageBucket: "mindcare-23fd5.appspot.com",
   messagingSenderId: "336244885835",
   appId: "1:336244885835:web:5b11422d8abd7b5dd780ce",
   measurementId: "G-XJLSKL0WG2",

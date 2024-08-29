@@ -3,7 +3,18 @@ import styled from "@emotion/styled";
 import { FormControl, InputLabel, Typography } from "@mui/material";
 
 export const CustomTooltip = ({ active, payload, label }) => {
-  const emoticons = ["😭", "😢", "😔", "😐", "🙂", "😀", "😄", "😁", "😆", "😍"];
+  const emoticons = [
+    "😭",
+    "😢",
+    "😔",
+    "😐",
+    "🙂",
+    "😀",
+    "😄",
+    "😁",
+    "😆",
+    "😍",
+  ];
   if (active && payload && payload.length) {
     const { date, time, mood } = payload[0].payload;
     console.log(payload[0].payload);
@@ -18,7 +29,9 @@ export const CustomTooltip = ({ active, payload, label }) => {
       >
         <Typography variant="body1">{`Date: ${date}`}</Typography>
         <Typography variant="body1">{`Time: ${time}`}</Typography>
-        <Typography variant="body1">{`Mood: ${emoticons[mood - 1]}`}</Typography>
+        <Typography variant="body1">{`Mood: ${
+          emoticons[mood - 1]
+        }`}</Typography>
       </div>
     );
   }
@@ -43,10 +56,21 @@ export const yAxisTickFormatter = (value) => {
   console.log([value]);
   return emoticons[value - 1];
 };
-
 const filterMoodsByMonthAndYear = (moods, month, year) => {
   return moods.filter((m) => {
-    const moodDate = m.date.toDate();
+    // Convert to JavaScript Date object if necessary
+    let moodDate;
+    if (m.date instanceof Date) {
+      moodDate = m.date;
+    } else if (typeof m.date === "string") {
+      moodDate = new Date(m.date);
+    } else if (m.date.toDate) {
+      moodDate = m.date.toDate(); // Firestore Timestamp to JS Date
+    } else {
+      console.error("Unknown date format:", m.date);
+      return false;
+    }
+
     return moodDate.getMonth() + 1 === month && moodDate.getFullYear() === year;
   });
 };
@@ -56,15 +80,30 @@ const daysInMonth = (month, year) => {
 };
 
 export const prepareChartData = (moods, month, year) => {
-  const chartData = Array.from({ length: daysInMonth(month, year) }, (_, i) => ({
-    date: `${month}/${i + 1}`,
-    mood: null,
-    time: null,
-    count: 0,
-  }));
+  const chartData = Array.from(
+    { length: daysInMonth(month, year) },
+    (_, i) => ({
+      date: `${month}/${i + 1}`,
+      mood: null,
+      time: null,
+      count: 0,
+    })
+  );
 
   filterMoodsByMonthAndYear(moods, month, year).forEach((m) => {
-    const moodDate = m.date.toDate();
+    // Convert to JavaScript Date object if necessary
+    let moodDate;
+    if (m.date instanceof Date) {
+      moodDate = m.date;
+    } else if (typeof m.date === "string") {
+      moodDate = new Date(m.date);
+    } else if (m.date.toDate) {
+      moodDate = m.date.toDate(); // Firestore Timestamp to JS Date
+    } else {
+      console.error("Unknown date format:", m.date);
+      return;
+    }
+
     const day = moodDate.getDate();
     if (chartData[day - 1].mood === null) {
       chartData[day - 1].mood = m.mood;
@@ -103,7 +142,7 @@ export const Filters = styled.div`
   flex-direction: row;
   margin-bottom: 0;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
 `;
 
 export const Filter = styled(FormControl)`

@@ -19,6 +19,7 @@ export const moodSlice = createSlice({
 
 export const { setLoading, setMoods } = moodSlice.actions;
 
+// Serialize date before adding to Firestore
 export const createMood = (moodData) => {
   return async (dispatch) => {
     try {
@@ -28,7 +29,14 @@ export const createMood = (moodData) => {
         .collection("users")
         .doc(moodData.userId)
         .collection("moods");
-      await moodsCollection.add(moodData);
+
+      // Serialize the date before storing
+      const serializedMoodData = {
+        ...moodData,
+        date: moodData.date.toISOString(), // Convert Date object to string
+      };
+
+      await moodsCollection.add(serializedMoodData);
       dispatch(setLoading(false));
     } catch (error) {
       console.error(error);
@@ -37,6 +45,7 @@ export const createMood = (moodData) => {
   };
 };
 
+// Deserialize date when retrieving from Firestore
 export const getMoods = (userId) => {
   return async (dispatch) => {
     try {
@@ -52,7 +61,17 @@ export const getMoods = (userId) => {
         .get();
       const moods = [];
       querySnapshot.forEach((doc) => {
-        moods.push({ id: doc.id, ...doc.data() });
+        const data = doc.data();
+
+        // Convert the date to a JS Date object if necessary
+        let moodDate;
+        if (data.date.toDate) {
+          moodDate = data.date.toDate(); // Firestore Timestamp to JS Date
+        } else {
+          moodDate = new Date(data.date); // Already a JS Date or ISO string
+        }
+
+        moods.push({ id: doc.id, ...data, date: moodDate.toISOString() });
       });
       dispatch(setMoods(moods));
       dispatch(setLoading(false));
