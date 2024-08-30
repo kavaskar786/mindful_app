@@ -17,6 +17,7 @@
   overflow: hidden;
   justify-items: center;
   align-items: center;
+  margin-top: 15px;
 }
 
 @media (max-width: 768px) {

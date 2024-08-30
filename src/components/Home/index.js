@@ -42,9 +42,9 @@ const Home = () => {
           <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold" }} mt={2}>
             Services provided by the MindCare
           </Typography>
-          <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "medium" }} mt={2}>
+          {/* <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "medium" }} mt={2}>
             The app is divided into the following categories:
-          </Typography>
+          </Typography> */}
         </motion.div>
         <Grid container spacing={4} mt={2}>
           {limitedSlides.map((slide, index) => (
