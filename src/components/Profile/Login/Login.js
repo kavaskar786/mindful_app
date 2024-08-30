@@ -84,7 +84,9 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { user } = await firebase.auth().signInWithEmailAndPassword(email, password);
+      const { user } = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
       dispatch(
         login({
           uid: user.uid,
@@ -113,7 +115,13 @@ const Login = () => {
       <LeftSide>
         <Logo src={logo} alt="logo" />
         <StaticText marginTop={"0px"}>Welcome Back!</StaticText>
-        <Typography variant="h4" fontWeight="bold" color="#000000" textAlign="center" marginTop={"0px"}>
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          color="#000000"
+          textAlign="center"
+          marginTop={"0px"}
+        >
           Mental Well-being Starts Here!
         </Typography>
       </LeftSide>
