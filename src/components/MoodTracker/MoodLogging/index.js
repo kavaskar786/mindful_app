@@ -10,7 +10,14 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { useDispatch, useSelector } from "react-redux";
 import { createMood, getMoods } from "../../../store/features/mood/moodSlice";
 import firebase from "../../../utils/firebase";
@@ -82,14 +89,15 @@ const MoodLogging = () => {
     setShowSchedulePopup(true);
   };
 
-  const handleScheduleSubmit = async (freeTime) => {
-    const generatedSchedule = generateSchedule(freeTime);
+  const handleScheduleSubmit = async (selectedDate, selectedPsychiatrist) => {
+    const generatedSchedule = selectedDate.toLocaleString();
     const googleMeetLink = generateGoogleMeetLink();
 
     const newSession = await saveSessionToDatabase(
       userId,
       generatedSchedule,
-      googleMeetLink
+      googleMeetLink,
+      selectedPsychiatrist
     );
 
     if (newSession) {
@@ -99,13 +107,8 @@ const MoodLogging = () => {
     setShowSchedulePopup(false);
 
     alert(
-      `Session scheduled at ${generatedSchedule} with Google Meet link: ${googleMeetLink}`
+      `Session scheduled on ${generatedSchedule} with Dr. ${selectedPsychiatrist}.\nGoogle Meet link: ${googleMeetLink}`
     );
-  };
-
-  const generateSchedule = (freeTime) => {
-    // Generate schedule based on freeTime
-    return `Monday 4:00 PM - 5:00 PM`;
   };
 
   const generateGoogleMeetLink = () => {
@@ -124,22 +127,27 @@ const MoodLogging = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(sessionsData);
       setSessions(sessionsData);
     } catch (error) {
       console.error("Failed to fetch sessions", error);
     }
   };
 
-  const saveSessionToDatabase = async (userId, schedule, meetLink) => {
+  const saveSessionToDatabase = async (
+    userId,
+    schedule,
+    meetLink,
+    psychiatristId
+  ) => {
     try {
       const sessionRef = firebase.firestore().collection("sessions");
       const newSession = {
         userId,
         schedule,
         meetLink,
+        psychiatristId,
         status: "Scheduled",
-        createdAt: new Date(), // Using current date and time instead of serverTimestamp
+        createdAt: new Date(),
       };
 
       const docRef = await sessionRef.add(newSession);
@@ -148,7 +156,6 @@ const MoodLogging = () => {
       return { id: docRef.id, ...newSession };
     } catch (error) {
       console.error("Failed to save session: ", error.message);
-      console.error("Error details: ", error); // Additional error details
     }
   };
 
@@ -203,28 +210,69 @@ const MoodLogging = () => {
 };
 
 const SchedulePopup = ({ open, onClose, onSubmit }) => {
-  const [freeTime, setFreeTime] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [psychiatrists, setPsychiatrists] = useState([]);
+  const [selectedPsychiatrist, setSelectedPsychiatrist] = useState("");
+
+  useEffect(() => {
+    const fetchPsychiatrists = async () => {
+      try {
+        const usersRef = firebase.firestore().collection("users");
+        const querySnapshot = await usersRef
+          .where("userType", "==", "Psychiatrist")
+          .get();
+
+        const psychiatristsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPsychiatrists(psychiatristsData);
+      } catch (error) {
+        console.error("Failed to fetch psychiatrists", error);
+      }
+    };
+
+    fetchPsychiatrists();
+  }, []);
 
   const handleSubmit = () => {
-    onSubmit(freeTime);
+    onSubmit(selectedDate, selectedPsychiatrist);
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Schedule Psychiatric Session</DialogTitle>
       <DialogContent>
-        <TextField
-          label="Enter your free time (e.g., Monday 3 PM - 5 PM)"
-          fullWidth
-          variant="outlined"
-          value={freeTime}
-          onChange={(e) => setFreeTime(e.target.value)}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DateTimePicker
+            label="Select Date and Time"
+            value={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+          />
+        </LocalizationProvider>
+
+        <FormControl fullWidth sx={{ marginTop: "24px" }}>
+          <InputLabel id="psychiatrist-label">Select Psychiatrist</InputLabel>
+          <Select
+            labelId="psychiatrist-label"
+            id="psychiatrist"
+            value={selectedPsychiatrist}
+            onChange={(e) => setSelectedPsychiatrist(e.target.value)}
+          >
+            {psychiatrists.map((psychiatrist) => (
+              <MenuItem key={psychiatrist.id} value={psychiatrist.id}>
+                Dr. {psychiatrist.username} - Rating: {psychiatrist.rating || 0}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
         <Button onClick={handleSubmit} color="primary">
-          Schedule
+          Schedule Here is the continuation and completion of the code:
+          ```javascript Schedule
         </Button>
       </DialogActions>
     </Dialog>
@@ -233,35 +281,25 @@ const SchedulePopup = ({ open, onClose, onSubmit }) => {
 
 const SessionsPage = ({ sessions }) => {
   return (
-    <div>
-      <h2>Your Sessions</h2>
+    <Box sx={{ paddingTop: 4 }}>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        Scheduled Sessions
+      </Typography>
       {sessions.length > 0 ? (
         <ul>
           {sessions.map((session) => (
             <li key={session.id}>
-              <p>
-                <strong>Date:</strong> {session.schedule}
-              </p>
-              <p>
-                <strong>Google Meet Link:</strong>{" "}
-                <a
-                  href={session.meetLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Join Meeting
-                </a>
-              </p>
-              <p>
-                <strong>Status:</strong> {session.status}
-              </p>
+              <Typography>
+                {session.schedule} - Psychiatrist: {session.psychiatristId} -{" "}
+                <a href={session.meetLink}>Google Meet Link</a>
+              </Typography>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No sessions scheduled.</p>
+        <Typography>No sessions scheduled yet.</Typography>
       )}
-    </div>
+    </Box>
   );
 };
 
