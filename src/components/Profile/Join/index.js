@@ -2,15 +2,54 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import firebase from "../../../utils/firebase";
 import styled from "@mui/material/styles/styled";
-import { Button, TextField, Box, Typography } from "@mui/material";
 import logo from "../../../assets/images/mlf1.png";
+import {
+  Button,
+  TextField,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+// import logo from "../../../assets/images/logo.svg";
 import { useDispatch } from "react-redux";
 
-// Styled components
 const Container = styled(Box)(({ theme }) => ({
   display: "flex",
-  height: "100vh",
-  backgroundColor: "#F0F0F0",
+  // flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  height: window.innerHeight - 64,
+}));
+
+const Logo = styled("img")(({ theme }) => ({
+  width: "200px",
+  marginBottom: "48px",
+}));
+
+const Form = styled(Box)(({ theme }) => ({
+  width: "100%",
+  maxWidth: "400px",
+  backgroundColor: theme.palette.background.box,
+  borderRadius: "8px",
+  padding: "32px",
+  boxShadow: theme.shadows[1],
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  marginBottom: "24px",
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  width: "100%",
+  marginTop: "24px",
+}));
+
+const ErrorMessage = styled(Typography)(({ theme }) => ({
+  color: theme.palette.error.main,
+  marginBottom: "24px",
 }));
 
 const LeftSide = styled(Box)(({ theme }) => ({
@@ -22,20 +61,6 @@ const LeftSide = styled(Box)(({ theme }) => ({
   textAlign: "center",
   padding: "40px",
   backgroundColor: "#FFFFFF",
-  // Removed borderRadius to match the original request
-}));
-
-const Logo = styled("img")(({ theme }) => ({
-  width: "150px",
-  marginTop: "0", // Adjusted marginTop to move the logo up
-  height: "auto",
-}));
-
-const StaticText = styled(Typography)(({ theme }) => ({
-  fontSize: "2.4rem",
-  fontWeight: "bold",
-  color: "#000000",
-  marginTop: "0", // Adjusted marginTop to move the text up
 }));
 
 const RightSide = styled(Box)(({ theme }) => ({
@@ -49,27 +74,11 @@ const RightSide = styled(Box)(({ theme }) => ({
   borderRadius: "0 16px 16px 0",
 }));
 
-const Form = styled(Box)(({ theme }) => ({
-  width: "100%",
-  maxWidth: "400px",
-  padding: "32px",
-  backgroundColor: "#FFFFFF",
-  borderRadius: "8px",
-  boxShadow: theme.shadows[2],
-}));
-
-const StyledTextField = styled(TextField)(({ theme }) => ({
-  marginBottom: "16px",
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  width: "100%",
-  marginTop: "24px",
-}));
-
-const ErrorMessage = styled(Typography)(({ theme }) => ({
-  color: theme.palette.error.main,
-  marginBottom: "16px",
+const StaticText = styled(Typography)(({ theme }) => ({
+  fontSize: "2.4rem",
+  fontWeight: "bold",
+  color: "#000000",
+  marginTop: "10px", // Reduce the margin-top to decrease space
 }));
 
 const Join = () => {
@@ -88,6 +97,7 @@ const Join = () => {
       if (password !== confirmPassword) {
         throw new Error("Passwords do not match");
       }
+      // Check if username already exists
       const userSnapshot = await firebase
         .firestore()
         .collection("users")
@@ -96,9 +106,11 @@ const Join = () => {
       if (!userSnapshot.empty) {
         throw new Error("Username already exists");
       }
+      // Create user in Firebase auth
       const { user } = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
+      // Add user info to Firestore
       await user.updateProfile({
         displayName: username,
       });
@@ -131,19 +143,20 @@ const Join = () => {
     <Container>
       <LeftSide>
         <Logo src={logo} alt="logo" />
-        <StaticText>Your Journey to</StaticText>
+        <StaticText marginTop={"0px"}>Welcome Back!</StaticText>
         <Typography
           variant="h4"
           fontWeight="bold"
           color="#000000"
           textAlign="center"
+          marginTop={"0px"}
         >
           Mental Well-being Starts Here!
         </Typography>
       </LeftSide>
       <RightSide>
         <Form component="form" onSubmit={handleJoin}>
-          <Typography variant="h5" gutterBottom textAlign="center">
+          <Typography variant="h5" gutterBottom>
             Join
           </Typography>
           {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -163,6 +176,19 @@ const Join = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+          <FormControl fullWidth sx={{ marginBottom: "24px" }}>
+            <InputLabel id="user-type-label">User Type</InputLabel>
+            <Select
+              labelId="user-type-label"
+              id="userType"
+              value={userType}
+              label="User Type"
+              onChange={(e) => setUserType(e.target.value)}
+            >
+              <MenuItem value="User">User</MenuItem>
+              <MenuItem value="Psychiatrist">Psychiatrist</MenuItem>
+            </Select>
+          </FormControl>
           <StyledTextField
             id="password"
             label="Password"
