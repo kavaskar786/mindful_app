@@ -41,7 +41,10 @@ function Chatbot() {
 
         // Process the API response
         const botMessage = result.response.text() || "No response from bot.";
-        setConversation((prev) => [...prev, { role: "assistant", content: botMessage }]);
+        setConversation((prev) => [
+          ...prev,
+          { role: "assistant", content: botMessage },
+        ]);
       } catch (error) {
         console.error("Error sending message:", error);
 
@@ -76,7 +79,11 @@ function Chatbot() {
     >
       <Header />
       <ConversationArea conversation={conversation} />
-      <InputArea message={message} setMessage={setMessage} sendMessage={sendMessage} />
+      <InputArea
+        message={message}
+        setMessage={setMessage}
+        sendMessage={sendMessage}
+      />
     </Box>
   );
 }

@@ -1,16 +1,25 @@
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { useRef, useEffect, forwardRef } from "react";
+import ReactMarkdown from "react-markdown";
 
 const MessageBubble = styled(Box)(({ theme, isUser, isError }) => ({
   maxWidth: "60%",
   wordWrap: "break-word",
-  backgroundColor: isError ? "#e77b7b" : isUser ? theme.palette.primary.main : theme.palette.background.paper,
-  color: isError ? "#721c24" : isUser ? theme.palette.primary.contrastText : theme.palette.text.primary,
+  backgroundColor: isError
+    ? "#e77b7b"
+    : isUser
+    ? theme.palette.primary.main
+    : theme.palette.background.paper,
+  color: isError
+    ? "#721c24"
+    : isUser
+    ? theme.palette.primary.contrastText
+    : theme.palette.text.primary,
   alignSelf: isError ? "center" : isUser ? "flex-end" : "flex-start",
   marginBottom: theme.spacing(1),
   padding: theme.spacing(1),
-  borderRadius: 2,
+  borderRadius: 10,
 }));
 
 const Message = forwardRef(({ msg }, ref) => {
@@ -19,7 +28,7 @@ const Message = forwardRef(({ msg }, ref) => {
 
   return (
     <MessageBubble ref={ref} isUser={isUser} isError={isError}>
-      <Typography>{msg.content}</Typography>
+      <ReactMarkdown>{msg.content}</ReactMarkdown>
     </MessageBubble>
   );
 });
@@ -32,7 +41,8 @@ function ConversationArea({ conversation }) {
   }, [conversation]);
 
   const initialBotMessage2 = {
-    content: "Please note that you are interacting with an AI therapy bot designed to provide support and coping skills, not a human therapist.",
+    content:
+      "Please note that you are interacting with an AI therapy bot designed to provide support and coping skills, not a human therapist.",
     role: "bot",
   };
 
@@ -43,7 +53,14 @@ function ConversationArea({ conversation }) {
   };
 
   return (
-    <Box height="80%" display="flex" flexDirection="column" justifyContent="flex-end" alignItems="center" bgcolor="background.paper">
+    <Box
+      height="80%"
+      display="flex"
+      flexDirection="column"
+      justifyContent="flex-end"
+      alignItems="center"
+      bgcolor="background.paper"
+    >
       <Box
         display="flex"
         flexDirection="column"
@@ -55,9 +72,15 @@ function ConversationArea({ conversation }) {
         maxHeight="100%"
         overflow="auto"
       >
-        {[initialBotMessage, initialBotMessage2, ...conversation].map((msg, index) => (
-          <Message key={index} msg={msg} ref={index === conversation.length ? messagesEndRef : null} />
-        ))}
+        {[initialBotMessage, initialBotMessage2, ...conversation].map(
+          (msg, index) => (
+            <Message
+              key={index}
+              msg={msg}
+              ref={index === conversation.length ? messagesEndRef : null}
+            />
+          )
+        )}
       </Box>
       <div ref={messagesEndRef} />
     </Box>
