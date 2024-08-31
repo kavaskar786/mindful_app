@@ -147,7 +147,13 @@ const Footer = () => {
   }, []);
 
   return (
-    <FooterContainer ref={footerRef}>
+    <FooterContainer
+      ref={footerRef}
+      sx={{
+        backgroundColor: isDarkMode ? "#000000" : "#f8f8f8",
+        color: isDarkMode ? "#ffffff" : "#000000",
+      }}
+    >
       <div className="cs_form">
         <Box>
           {/* Logo */}
