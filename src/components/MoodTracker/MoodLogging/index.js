@@ -271,8 +271,7 @@ const SchedulePopup = ({ open, onClose, onSubmit }) => {
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
         <Button onClick={handleSubmit} color="primary">
-          Schedule Here is the continuation and completion of the code:
-          ```javascript Schedule
+          Schedule
         </Button>
       </DialogActions>
     </Dialog>
