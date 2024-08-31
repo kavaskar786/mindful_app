@@ -30,7 +30,7 @@ function Chatbot() {
       setMessage("");
 
       try {
-        // Create the prompt for the API
+        // Create the prompt for the API to
         const prompt = message;
 
         // Get the model

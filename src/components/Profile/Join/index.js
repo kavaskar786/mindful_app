@@ -26,7 +26,7 @@ const Container = styled(Box)(({ theme }) => ({
 
 const Logo = styled("img")(({ theme }) => ({
   width: "200px",
-  marginBottom: "48px",
+  // marginBottom: "48px",
 }));
 
 const Form = styled(Box)(({ theme }) => ({
