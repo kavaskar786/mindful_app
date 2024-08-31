@@ -22,6 +22,7 @@
     "firebase": "^9.18.0",
     "firebase-admin": "^11.5.0",
     "framer-motion": "^10.11.6",
+    "gsap": "^3.12.5",
     "react": "^18.2.0",
     "react-audio-player": "^0.17.0",
     "react-calendar": "^4.2.1",
