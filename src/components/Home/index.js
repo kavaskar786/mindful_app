@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Typography,
   Box,
@@ -9,12 +9,16 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Home.css";
 import ContactUs from "../ContactUs/index.js";
 import Footer from "../Footer/Footer.js";
 import slideImages from "./slideImages.json";
 import LandingPage from "../HomePage/index.js";
 
+// Register the ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const cardVariants = {
@@ -27,8 +31,39 @@ const Home = () => {
   // Limit to four images
   const limitedSlides = slideImages.slice(0, 4);
 
+  const headingRef = useRef(null);
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    // GSAP animation for the heading triggered by ScrollTrigger
+    gsap.from(headingRef.current, {
+      opacity: 0,
+      y: -50,
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%", // Start the animation when the top of the element hits 80% of the viewport height
+        toggleActions: "play none none none",
+      },
+    });
+
+    // GSAP animation for the grid items triggered by ScrollTrigger
+    gsap.from(gridRef.current.children, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: gridRef.current,
+        start: "top 80%", // Start the animation when the top of the grid hits 80% of the viewport height
+        toggleActions: "play none none none",
+      },
+    });
+  }, []);
+
   return (
-    
     <Box
       className="container"
       sx={{
@@ -36,17 +71,27 @@ const Home = () => {
         color: darkMode ? "#ffffff" : "#000000",
       }}
     >
-      < LandingPage />
+      <LandingPage />
       <Container maxWidth="lg">
-        <motion.div initial="hidden" animate="visible" className="gomma" variants={cardVariants} transition={{ duration: 1 }}>
-          <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold" }} mt={2}>
-            Services provided by the MindCare
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          className="gomma"
+          variants={cardVariants}
+          transition={{ duration: 1 }}
+        >
+          <Typography
+            variant="h4"
+            align="center"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+            mt={2}
+            ref={headingRef}
+          >
+            Services provided by MindCare
           </Typography>
-          {/* <Typography variant="h5" align="center" gutterBottom sx={{ fontWeight: "medium" }} mt={2}>
-            The app is divided into the following categories:
-          </Typography> */}
         </motion.div>
-        <Grid container spacing={4} mt={2}>
+        <Grid container spacing={4} mt={2} ref={gridRef}>
           {limitedSlides.map((slide, index) => (
             <Grid item xs={12} sm={6} md={6} key={index}>
               <motion.div
@@ -67,7 +112,11 @@ const Home = () => {
                     src={slide.image} // Assuming slide.image holds the image path
                     alt={slide.title}
                     className="cardImage"
-                    style={{ width: "100%", height: "300px", objectFit: "cover" }} // Ensure image fits within the card
+                    style={{
+                      width: "100%",
+                      height: "300px",
+                      objectFit: "cover",
+                    }} // Ensure image fits within the card
                   />
                   <CardContent
                     className="cardContent"
