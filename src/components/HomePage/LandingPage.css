@@ -16,7 +16,7 @@
 
 .right-content {
   flex: 1;
-  background-image: url('./heroimage.png'); /* Ensure the path is correct */
+  background-image: url('https://i.ibb.co/YQKSFg2/heroimage.png'); /* Ensure the path is correct */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right bottom;
