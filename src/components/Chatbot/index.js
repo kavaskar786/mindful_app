@@ -11,7 +11,7 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Initialize the API client with the API key from environment variables
-const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+const apiKey = "AIzaSyDNvyOAVck6zhdB9sA2dQ-xEF2f3eh1fiU";
 const genAI = new GoogleGenerativeAI(apiKey);
 
 function Chatbot() {
